@@ -14,6 +14,7 @@ repositories {
 val ktor_version: String by project
 val logback_version: String by project
 val junitVersion = "5.5.1"
+val kotlin_version : String by project
 
 
 dependencies {
@@ -23,7 +24,8 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("io.ktor:ktor-server-core:$ktor_version")
     implementation("io.ktor:ktor-html-builder:$ktor_version")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+    testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
+    testImplementation("org.jetbrains.kotlin:kotlin-test:$kotlin_version")
+
 
 }
