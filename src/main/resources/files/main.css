@@ -1,0 +1,103 @@
+Client端有以下的功能：
+
+提供輸入視窗讓使用者輸入名稱。
+連線至Socket Server進行即時通訊。
+成員加入與離開聊天室時顯示通知。
+聊天室訊息發送與顯示。
+收到新訊息時滾動置底。
+本文延續Day11的專案架構，因此請先閱讀並完成Day11的內容。
+
+專案開發
+介面設計
+首先，開啟index.html檔案，並撰寫以下程式碼。
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimum-scale=1, maximum-scale=1">
+    <title>Day12-13</title>
+    <!-- 匯入CSS檔案 -->
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+<body>
+    <!-- 建立h3標題 -->
+    <h3 id="title">歡迎來到WebSocket聊天室</h3>
+    <!-- 建立ul清單，用於顯示聊天室訊息 -->
+    <ul id="messages"></ul>
+    <!-- 建立form表單，內部包含input元件及button元件 -->
+    <form id="form" action="">
+        <input id="input" autocomplete="off">
+        <button>Send</button>
+    </form>
+    <!-- 匯入Socket.IO套件 -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- 匯入JavaScript程式碼 -->
+    <script src="index.js"></script>
+</body>
+
+</html>
+接著，開啟main.css檔案，並撰寫以下程式碼。
+
+body {
+    background: #F3E8EB;
+    margin: 0;
+    padding-bottom: 3rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+#title {
+    display: flex;
+    justify-content: center;
+}
+
+#form {
+    background: #C2B4D6;
+    padding: 0.25rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    height: 3rem;
+    box-sizing: border-box;
+    backdrop-filter: blur(10px);
+}
+
+#input {
+    border: none;
+    padding: 0 1rem;
+    flex-grow: 1;
+    border-radius: 2rem;
+    margin: 0.25rem;
+}
+
+#input:focus {
+    outline: none;
+}
+
+#form>button {
+    background: #57648C;
+    border: none;
+    padding: 0 1rem;
+    margin: 0.25rem;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+}
+
+#messages {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#messages>li {
+    padding: 0.5rem 1rem;
+}
+
+#messages>li:nth-child(odd) {
+    background: #fae3d3;
+}
