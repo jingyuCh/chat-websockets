@@ -65,6 +65,9 @@ fun Application.module() {
         static("/static") {
             resources("files")
         }
+        get("/") {
+            call.respondText("Hello, world!")
+        }
 
 
 
