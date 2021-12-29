@@ -1,24 +1,14 @@
 package com.jetbrains.handson.chat.server
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.ObjectType
-import com.typesafe.config.ConfigFactory
 import io.ktor.application.*
-import io.ktor.config.*
-import io.ktor.features.*
-import io.ktor.http.*
-
 import io.ktor.http.cio.websocket.*
 import io.ktor.http.content.*
-import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
-import io.ktor.server.engine.*
-import io.ktor.server.netty.*
 import io.ktor.websocket.*
-import kotlinx.serialization.json.Json
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
-
+import kotlinx.serialization.json.Json
 import java.util.*
 
 
