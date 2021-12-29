@@ -8,12 +8,13 @@ import io.ktor.routing.*
 import io.ktor.websocket.*
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
 
 
 @Serializable
-data class ChatData(val type: String, val message: String,val userName:String)
+data class ChatData(val type: String, var message: String, val userName:String)
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
@@ -34,7 +35,7 @@ fun Application.module() {
                     val chatData = Json.decodeFromString<ChatData>(frame.readText())
                     when (chatData.type) {
                         "join" -> {
-                            println(chatData.userName +"join")
+                            println(chatData.userName +" join")
                         }
                         "message" -> {
                             println(chatData.userName +" send")
@@ -58,8 +59,24 @@ fun Application.module() {
         get("/") {
             call.respondText("Hello, world!")
         }
-
-
+        webSocket("/echo") {
+            send("Please enter your name")
+            for (frame in incoming) {
+                frame as? Frame.Text ?: continue
+                val chatData = Json.decodeFromString<ChatData>(frame.readText())
+                when (chatData.type) {
+                    "join" -> {
+                        send(Frame.Text("Hi, "+chatData.userName+"!"))
+                    }
+                    "message" -> {
+                        println(chatData.userName +" say " + chatData.message)
+                    }
+                    "leave" -> {
+                        close(CloseReason(CloseReason.Codes.NORMAL, "Client said BYE"))
+                    }
+                }
+            }
+        }
 
     }
 
